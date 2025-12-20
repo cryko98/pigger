@@ -11,4 +11,6 @@ if (rootElement) {
       <App />
     </React.StrictMode>
   );
+} else {
+  console.error("Critical: Could not find the root element to mount the React application.");
 }
