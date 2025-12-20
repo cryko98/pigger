@@ -38,8 +38,8 @@ const Navbar = () => (
         <span className="font-syne font-extrabold text-sm tracking-tighter">$PIGGER</span>
       </div>
       <div className="hidden md:flex gap-8">
-        {['BLUEPRINT', 'CONTRACT', 'FORGE', 'CONNECT'].map((item) => (
-          <a key={item} href={`#${item.toLowerCase() === 'forge' ? 'ai' : item.toLowerCase()}`} className="font-syne text-[9px] font-extrabold tracking-[0.2em] text-white/40 hover:text-white transition-all uppercase">{item}</a>
+        {['BLUEPRINT', 'CONTRACT', 'MEME GEN', 'CONNECT'].map((item) => (
+          <a key={item} href={`#${item.toLowerCase().includes('meme') ? 'ai' : item.toLowerCase().replace(' ', '')}`} className="font-syne text-[9px] font-extrabold tracking-[0.2em] text-white/40 hover:text-white transition-all uppercase">{item}</a>
         ))}
       </div>
       <a href="https://x.com/i/communities/2002245587119341628" target="_blank" className="btn-pigger px-6 py-2.5 font-syne font-extrabold text-[9px] tracking-widest uppercase">JOIN COMMUNITY</a>
@@ -65,7 +65,7 @@ const Hero = () => {
         </div>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="mt-16 flex flex-wrap justify-center gap-4">
           <button onClick={() => document.getElementById('contract')?.scrollIntoView({ behavior: 'smooth' })} className="btn-pigger px-12 py-5 font-syne font-extrabold text-[11px] tracking-[0.2em]">GET $PIGGER</button>
-          <a href="#ai" className="px-12 py-5 rounded-full border border-white/10 font-syne font-extrabold text-[11px] tracking-[0.2em] text-white/60 hover:text-white hover:bg-white/5 transition-all">MEME FORGE</a>
+          <a href="#ai" className="px-12 py-5 rounded-full border border-white/10 font-syne font-extrabold text-[11px] tracking-[0.2em] text-white/60 hover:text-white hover:bg-white/5 transition-all">MEME GEN</a>
         </motion.div>
       </motion.div>
     </section>
@@ -158,7 +158,6 @@ const MemeGenerator = () => {
     if (!prompt.trim() || isGenerating) return;
     setIsGenerating(true);
     try {
-      // Create a fresh instance of GoogleGenAI right before making an API call using the environment variable directly.
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       
       const logoRes = await fetch(PIGGER_IMG);
@@ -183,7 +182,6 @@ const MemeGenerator = () => {
         config: { imageConfig: { aspectRatio: "1:1" } }
       });
 
-      // Correctly extract image data by iterating through response candidate parts as per guidelines.
       if (response.candidates && response.candidates[0] && response.candidates[0].content && response.candidates[0].content.parts) {
         for (const part of response.candidates[0].content.parts) {
           if (part.inlineData) {
@@ -193,8 +191,7 @@ const MemeGenerator = () => {
         }
       }
     } catch (e) { 
-      console.error("Forge Error:", e);
-      // Handled silently to comply with guidelines regarding API key management UI.
+      console.error("Meme Gen Error:", e);
     } finally { 
       setIsGenerating(false); 
     }
@@ -206,7 +203,7 @@ const MemeGenerator = () => {
         <div className="flex flex-col lg:flex-row gap-16 items-start">
           <div className="lg:w-1/3 space-y-10">
             <div>
-              <h2 className="text-5xl md:text-7xl font-marker text-white mb-6 uppercase">FORGE</h2>
+              <h2 className="text-5xl md:text-7xl font-marker text-white mb-6 uppercase">MEME GEN</h2>
               <p className="text-white/40 font-syne text-[10px] tracking-[0.4em] font-bold uppercase">The AI Meme Engine</p>
             </div>
             <div className="space-y-6">
@@ -224,7 +221,7 @@ const MemeGenerator = () => {
                 ))}
               </div>
             </div>
-            <button onClick={generateMeme} disabled={isGenerating || !prompt} className="w-full btn-pigger py-6 font-syne font-extrabold text-[12px] tracking-widest uppercase disabled:opacity-20">{isGenerating ? 'FORGING...' : 'GENERATE MEME'}</button>
+            <button onClick={generateMeme} disabled={isGenerating || !prompt} className="w-full btn-pigger py-6 font-syne font-extrabold text-[12px] tracking-widest uppercase disabled:opacity-20">{isGenerating ? 'GENERATING...' : 'GENERATE MEME'}</button>
           </div>
           <div className="lg:w-2/3 w-full">
             <div className="relative aspect-square bg-white/[0.01] border border-white/5 rounded-[3.5rem] overflow-hidden group">
@@ -239,7 +236,7 @@ const MemeGenerator = () => {
                 ) : (
                   <div className="w-full h-full flex flex-col items-center justify-center p-10 opacity-30 group-hover:opacity-50 transition-opacity">
                     <img src={PIGGER_IMG} className="w-32 h-32 mb-8 rounded-full grayscale" alt="Placeholder" />
-                    <p className="font-syne text-[9px] font-bold tracking-[1em] uppercase">Forge Is Ready</p>
+                    <p className="font-syne text-[9px] font-bold tracking-[1em] uppercase">Meme Gen Is Ready</p>
                   </div>
                 )}
               </AnimatePresence>
