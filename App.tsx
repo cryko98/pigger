@@ -5,7 +5,28 @@ import { GoogleGenAI } from "@google/genai";
 
 const PIGGER_IMG = "https://wkkeyyrknmnynlcefugq.supabase.co/storage/v1/object/public/wasd/IMG_3013.jpeg.png";
 
-// --- COMPONENTS ---
+// --- SEGÉDFÜGGVÉNYEK ---
+
+const stylePresets = [
+  { id: 'realistic', label: 'REALISTIC', prompt: 'photorealistic, cinematic, 8k resolution, highly detailed, professional photography' },
+  { id: 'cartoon', label: 'CARTOON', prompt: 'cartoon style, bold lines, vibrant colors, 2d animation look, clean vector art' },
+  { id: 'cyberpunk', label: 'CYBERPUNK', prompt: 'cyberpunk aesthetic, neon glowing lights, futuristic city background, synthwave colors' },
+  { id: 'pixelart', label: 'PIXEL ART', prompt: 'pixel art style, 16-bit retro gaming aesthetic, blocky textures' },
+  { id: 'vintage', label: 'VINTAGE', prompt: 'vintage film look, grainy, 90s photography style, retro color palette' }
+];
+
+const randomScenarios = [
+  "wearing a massive gold crown and holding a diamond-encrusted staff",
+  "playing high-stakes poker with bricks of cash on a glass table",
+  "performing on a huge concert stage with flashing lights and smoke",
+  "chilling in a high-rise penthouse overlooking a futuristic city",
+  "floating in zero gravity inside a spaceship filled with floating coins",
+  "as a high-profile DJ at a massive outdoor beach festival",
+  "winning a Formula 1 race and spraying champagne on the podium",
+  "riding a rocket to the moon while wearing a cool streetwear hoodie"
+];
+
+// --- KOMPONENSEK ---
 
 const Header = () => (
   <motion.header 
@@ -202,23 +223,6 @@ const Tokenomics = () => {
   );
 };
 
-const stylePresets = [
-  { id: 'jet', label: 'THE HANGAR', prompt: 'in a high-tech hangar next to a black jet' },
-  { id: 'vault', label: 'THE BAG', prompt: 'inside a high-security vault with stacks of cash and gold bricks' },
-  { id: 'studio', label: 'BOOTH MODE', prompt: 'in a professional recording studio with a neon mic and gear' },
-  { id: 'street', label: 'BLOCK STAR', prompt: 'standing next to a slammed black supercar on a vibrant neon city street' }
-];
-
-const randomScenarios = [
-  "wearing a massive gold crown and holding a diamond-encrusted staff",
-  "playing high-stakes poker with bricks of cash on a glass table",
-  "performing on a huge concert stage with flashing lights and smoke",
-  "chilling in a high-rise penthouse overlooking a futuristic city",
-  "floating in zero gravity inside a spaceship filled with floating coins",
-  "as a high-profile DJ at a massive outdoor beach festival",
-  "winning a Formula 1 race and spraying champagne on the podium"
-];
-
 const MemeGenerator = () => {
   const [prompt, setPrompt] = useState("");
   const [selectedPreset, setSelectedPreset] = useState(stylePresets[0].id);
@@ -228,7 +232,7 @@ const MemeGenerator = () => {
   const [customRefImage, setCustomRefImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const stages = ["CHECKING THE VIBE...", "GETTING THE FIT...", "INJECTING VIBRANT COLORS...", "FINAL RENDER..."];
+  const stages = ["CHECKING THE VIBE...", "STYLING THE PIG...", "INJECTING VIBRANT COLORS...", "FINAL RENDER..."];
 
   useEffect(() => {
     if (isGenerating) {
@@ -246,23 +250,11 @@ const MemeGenerator = () => {
     }
   };
 
-  const handleRandomizeAndGenerate = () => {
-    const randomScene = randomScenarios[Math.floor(Math.random() * randomScenarios.length)];
-    const randomPreset = stylePresets[Math.floor(Math.random() * stylePresets.length)];
-    setPrompt(randomScene);
-    setSelectedPreset(randomPreset.id);
-    
-    // Trigger generation after a tiny delay to ensure state updates (or use the values directly)
-    setTimeout(() => {
-      triggerGeneration(randomScene, randomPreset.prompt);
-    }, 50);
-  };
-
-  const triggerGeneration = async (currentPrompt: string, presetPrompt: string) => {
+  const triggerGeneration = async (currentPrompt: string, stylePrompt: string) => {
     if (!currentPrompt.trim()) return;
     setIsGenerating(true);
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
       
       let base64Data: string;
       let mimeType = 'image/jpeg';
@@ -282,26 +274,22 @@ const MemeGenerator = () => {
         mimeType = 'image/png';
       }
 
-      const fullPrompt = `Create a high-quality, realistic cinematic image in VIBRANT COLOR of the pig character shown in the reference image. 
-      Scenario: ${currentPrompt}. 
-      Background: ${presetPrompt}. 
-      Vibe: Ultra-sharp focus, dynamic lighting, professional cinematic color grading, rich textures. 
-      IMPORTANT: The output must be in FULL COLOR, NOT black and white.`;
+      const fullPrompt = `Create a high-quality image of the pig character from the reference in the style: ${stylePrompt}. 
+      Scene: ${currentPrompt}. 
+      IMPORTANT: The output must be in VIBRANT FULL COLOR, ultra-sharp focus, dynamic lighting.`;
 
       const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash-image',
         contents: {
           parts: [{ inlineData: { data: base64Data, mimeType } }, { text: fullPrompt }]
         },
-        config: {
-          imageConfig: { aspectRatio: "1:1" }
-        }
+        config: { imageConfig: { aspectRatio: "1:1" } }
       });
 
-      const part = response.candidates[0].content.parts.find(p => p.inlineData);
+      const part = response.candidates?.[0]?.content?.parts.find(p => p.inlineData);
       if (part) setActiveImage(`data:image/png;base64,${part.inlineData.data}`);
     } catch (e) { 
-      console.error(e); 
+      console.error("Generation failed:", e); 
     } finally { 
       setIsGenerating(false); 
     }
@@ -312,6 +300,14 @@ const MemeGenerator = () => {
     triggerGeneration(prompt, preset?.prompt || "");
   };
 
+  const handleRandomize = () => {
+    const randomScene = randomScenarios[Math.floor(Math.random() * randomScenarios.length)];
+    const randomPreset = stylePresets[Math.floor(Math.random() * stylePresets.length)];
+    setPrompt(randomScene);
+    setSelectedPreset(randomPreset.id);
+    setTimeout(() => triggerGeneration(randomScene, randomPreset.prompt), 50);
+  };
+
   return (
     <section id="ai" className="py-40 px-6">
       <div className="max-w-7xl mx-auto">
@@ -319,10 +315,9 @@ const MemeGenerator = () => {
           <div className="xl:w-1/3 space-y-10">
             <div>
               <h2 className="text-5xl md:text-7xl font-marker text-white mb-6 uppercase tracking-wider">Meme Maker</h2>
-              <p className="text-gray-500 font-syne text-[11px] tracking-[0.4em] font-bold uppercase">Forge your status. Get the fit right.</p>
+              <p className="text-gray-500 font-syne text-[11px] tracking-[0.4em] font-bold uppercase">Choose a style and forge greatness.</p>
             </div>
 
-            {/* Custom Image Upload */}
             <div className="space-y-4">
               <label className="font-syne text-[10px] text-white/40 tracking-[0.2em] font-bold uppercase">Reference Image</label>
               <div 
@@ -331,7 +326,7 @@ const MemeGenerator = () => {
               >
                 <img src={customRefImage || PIGGER_IMG} className="w-16 h-16 rounded-2xl object-cover" alt="Ref" />
                 <div>
-                  <p className="font-syne text-[10px] font-bold text-white uppercase">{customRefImage ? 'CUSTOM_LOADED' : 'USING_DEFAULT_PIGGER'}</p>
+                  <p className="font-syne text-[10px] font-bold text-white uppercase">{customRefImage ? 'CUSTOM_LOADED' : 'DEFAULT_PIGGER'}</p>
                   <p className="font-syne text-[9px] text-white/30 uppercase tracking-widest mt-1">CLICK TO CHANGE</p>
                 </div>
                 <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
@@ -342,7 +337,7 @@ const MemeGenerator = () => {
               <div className="flex justify-between items-center">
                 <label className="font-syne text-[10px] text-white/40 tracking-[0.2em] font-bold uppercase">01. THE SCENE</label>
                 <button 
-                  onClick={handleRandomizeAndGenerate}
+                  onClick={handleRandomize}
                   className="text-[10px] font-syne font-bold text-white hover:opacity-50 transition-all underline underline-offset-4 decoration-white/20 uppercase tracking-widest"
                 >
                   SURPRISE ME
@@ -352,7 +347,7 @@ const MemeGenerator = () => {
             </div>
 
             <div className="space-y-6">
-              <label className="font-syne text-[10px] text-white/40 tracking-[0.2em] font-bold uppercase">02. SETTING</label>
+              <label className="font-syne text-[10px] text-white/40 tracking-[0.2em] font-bold uppercase">02. CHOOSE STYLE</label>
               <div className="flex flex-wrap gap-3">
                 {stylePresets.map(p => (
                   <button key={p.id} onClick={() => setSelectedPreset(p.id)} className={`px-6 py-3 rounded-full font-syne text-[10px] font-extrabold tracking-widest transition-all ${selectedPreset === p.id ? 'bg-white text-black' : 'bg-white/5 text-white/40 hover:bg-white/10'}`}>{p.label}</button>
@@ -360,7 +355,7 @@ const MemeGenerator = () => {
               </div>
             </div>
 
-            <button onClick={generateMeme} disabled={isGenerating || !prompt} className="w-full btn-pigger py-8 font-syne font-extrabold text-[12px] tracking-[0.3em] uppercase disabled:opacity-30">{isGenerating ? 'WORKING...' : 'FORGE IMAGE'}</button>
+            <button onClick={generateMeme} disabled={isGenerating || !prompt} className="w-full btn-pigger py-8 font-syne font-extrabold text-[12px] tracking-[0.3em] uppercase disabled:opacity-30">{isGenerating ? 'FORGING...' : 'GENERATE MEME'}</button>
           </div>
 
           <div className="xl:w-2/3">
@@ -374,9 +369,9 @@ const MemeGenerator = () => {
                 ) : activeImage ? (
                   <motion.img initial={{ opacity: 0 }} animate={{ opacity: 1 }} src={activeImage} className="w-full h-full object-cover" alt="Result" />
                 ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center opacity-40">
+                  <div className="w-full h-full flex flex-col items-center justify-center opacity-60">
                     <img src={PIGGER_IMG} className="w-48 h-48 mb-8 rounded-full shadow-2xl" alt="Icon" />
-                    <p className="font-syne text-xs font-bold tracking-[0.8em] uppercase">Terminal Idle</p>
+                    <p className="font-syne text-xs font-bold tracking-[0.8em] uppercase">Ready To Forge</p>
                   </div>
                 )}
               </AnimatePresence>
