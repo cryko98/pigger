@@ -17,19 +17,25 @@ const Header: React.FC = () => {
             className="w-10 h-10 rounded-full border border-white/10 grayscale"
           />
           <div className="hidden sm:flex flex-col">
-            <span className="font-sync font-bold text-sm tracking-tighter">PIGGER</span>
-            <span className="text-[7px] font-sync text-white/30 tracking-[0.4em]">ELITE CLASS</span>
+            <span className="font-syne font-extrabold text-sm tracking-tight text-white">PIGGER</span>
+            <span className="text-[8px] font-syne text-white/30 tracking-[0.2em] font-bold">TOP TIER</span>
           </div>
         </div>
         
         <nav className="hidden md:flex gap-10">
-          {['Home', 'CA', 'AI', 'Links'].map((item) => (
+          {[
+            { name: 'HOME', id: 'home' },
+            { name: 'BLUEPRINT', id: 'blueprint' },
+            { name: 'CONTRACT', id: 'ca' },
+            { name: 'MEME GEN', id: 'ai' },
+            { name: 'CONNECT', id: 'links' }
+          ].map((item) => (
             <a 
-              key={item}
-              href={`#${item.toLowerCase()}`} 
-              className="font-sync text-[9px] font-bold tracking-[0.3em] uppercase text-gray-400 hover:text-white transition-all"
+              key={item.id}
+              href={`#${item.id}`} 
+              className="font-syne text-[10px] font-extrabold tracking-widest uppercase text-gray-400 hover:text-white transition-all"
             >
-              {item}
+              {item.name}
             </a>
           ))}
         </nav>
@@ -38,9 +44,9 @@ const Header: React.FC = () => {
           href="https://x.com/i/communities/2002245587119341628" 
           target="_blank" 
           rel="noreferrer"
-          className="btn-lux px-8 py-2.5 font-sync font-black text-[9px] tracking-[0.2em] uppercase shadow-xl"
+          className="btn-pigger px-10 py-3 font-syne font-extrabold text-[10px] tracking-widest uppercase"
         >
-          SYNDICATE
+          JOIN US
         </a>
       </div>
     </motion.header>
