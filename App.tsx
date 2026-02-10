@@ -86,30 +86,30 @@ const Hero = () => {
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center pt-32 pb-12 px-6 overflow-hidden relative">
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-        {/* Text Side - Left on Desktop */}
-        <motion.div style={{ opacity }} className="order-2 lg:order-1 text-center lg:text-left z-10">
-          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.8 }}>
-             <h1 className="text-5xl sm:text-7xl lg:text-[7rem] xl:text-[9rem] font-syne font-extrabold leading-[0.9] tracking-tighter gradient-text uppercase mb-6 lg:mb-8">
+    <section id="home" className="min-h-[100dvh] flex items-center justify-center pt-28 pb-12 px-4 sm:px-6 overflow-hidden relative">
+      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
+        {/* Text Side - Left on Desktop, Bottom on Mobile */}
+        <motion.div style={{ opacity }} className="order-2 lg:order-1 text-center lg:text-left z-10 flex flex-col items-center lg:items-start">
+          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.8 }} className="w-full">
+             <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-[7rem] xl:text-[9rem] font-syne font-extrabold leading-[0.9] tracking-tighter gradient-text uppercase mb-4 lg:mb-8 w-full break-words">
               GRADATIM<br/>FEROCITER
             </h1>
           </motion.div>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-white/40 font-syne text-[10px] md:text-xs tracking-[0.4em] font-bold uppercase mb-10 pl-1">
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-white/40 font-syne text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.4em] font-bold uppercase mb-8 lg:mb-10 pl-1">
             Step By Step • Ferociously • Solana
           </motion.p>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <button onClick={() => document.getElementById('contract')?.scrollIntoView({ behavior: 'smooth' })} className="btn-ferociter px-10 py-5 font-syne font-extrabold text-[11px] tracking-[0.2em]">GET $FEROCITER</button>
-            <a href="#chart" className="px-10 py-5 rounded-full border border-white/10 font-syne font-extrabold text-[11px] tracking-[0.2em] text-white/60 hover:text-white hover:bg-white/5 transition-all text-center">LIVE CHART</a>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start w-full sm:w-auto">
+            <button onClick={() => document.getElementById('contract')?.scrollIntoView({ behavior: 'smooth' })} className="btn-ferociter px-8 py-4 md:px-10 md:py-5 font-syne font-extrabold text-[11px] tracking-[0.2em] w-full sm:w-auto">GET $FEROCITER</button>
+            <a href="#chart" className="px-8 py-4 md:px-10 md:py-5 rounded-full border border-white/10 font-syne font-extrabold text-[11px] tracking-[0.2em] text-white/60 hover:text-white hover:bg-white/5 transition-all text-center w-full sm:w-auto">LIVE CHART</a>
           </motion.div>
         </motion.div>
 
-        {/* Image Side - Right on Desktop - IN FRAME */}
-        <motion.div style={{ y: y1 }} className="order-1 lg:order-2 flex justify-center lg:justify-end relative">
+        {/* Image Side - Right on Desktop, Top on Mobile */}
+        <motion.div style={{ y: y1 }} className="order-1 lg:order-2 flex justify-center lg:justify-end relative mb-6 lg:mb-0">
            <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1.2, ease: "easeOut" }} className="relative">
              {/* Glow Effects */}
-             <div className="absolute inset-0 bg-white/5 blur-[80px] rounded-full" />
-             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent blur-[40px] rounded-full animate-pulse" />
+             <div className="absolute inset-0 bg-white/5 blur-[60px] md:blur-[80px] rounded-full" />
+             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent blur-[30px] md:blur-[40px] rounded-full animate-pulse" />
              
              {/* The Framed Image */}
              <div className="relative z-10 p-2 md:p-4 border border-white/10 rounded-full bg-white/5 backdrop-blur-sm">
@@ -117,7 +117,7 @@ const Hero = () => {
                    <img 
                      src={FEROCITER_IMG} 
                      alt="Ferociter" 
-                     className="w-64 h-64 sm:w-80 sm:h-80 lg:w-[500px] lg:h-[500px] rounded-full object-cover shadow-2xl shadow-white/5" 
+                     className="w-48 h-48 sm:w-80 sm:h-80 lg:w-[500px] lg:h-[500px] rounded-full object-cover shadow-2xl shadow-white/5" 
                    />
                 </div>
              </div>
