@@ -1,8 +1,5 @@
 {
-  "name": "Wigger Pig ($pigger) Official",
-  "description": "The wildest memecoin on Solana. Features an AI-powered meme generator, real-time exchange tracking, and community links for $pigger.",
-  "requestFramePermissions": [
-    "camera",
-    "microphone"
-  ]
+  "name": "Gradatim Ferociter ($Ferociter)",
+  "description": "Step by step, ferociously. The ultimate memecoin on Solana.",
+  "requestFramePermissions": []
 }
