@@ -14,7 +14,6 @@ const Navbar = () => {
   const menuItems = [
     { name: 'MISSION', href: '#mission' },
     { name: 'CONTRACT', href: '#contract' },
-    { name: 'CHART', href: '#chart' },
     { name: 'CONNECT', href: '#connect' }
   ];
 
@@ -25,7 +24,7 @@ const Navbar = () => {
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="fixed top-0 left-0 right-0 z-[100] px-4 py-4 md:px-6 md:py-6 pointer-events-none"
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between soft-glass rounded-3xl md:rounded-full px-6 py-4 pointer-events-auto relative">
+      <div className="max-w-6xl mx-auto flex items-center justify-between soft-glass rounded-3xl md:rounded-full px-6 py-4 pointer-events-auto relative">
         <div className="flex items-center gap-3">
           <img src={FEROCITER_IMG} alt="Logo" className="w-8 h-8 rounded-full" />
           <span className="font-syne font-extrabold text-sm tracking-tighter">$FEROCITER</span>
@@ -82,98 +81,70 @@ const Navbar = () => {
 
 const Hero = () => {
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 100]);
+  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
-    <section id="home" className="min-h-[100dvh] flex items-center justify-center pt-28 pb-12 px-4 sm:px-6 relative overflow-x-hidden">
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
-        {/* Text Side - Left on Desktop, Bottom on Mobile */}
-        <motion.div style={{ opacity }} className="order-2 lg:order-1 text-center lg:text-left z-10 flex flex-col items-center lg:items-start">
-          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.8 }} className="w-full">
-             <h1 className="text-[12vw] xs:text-5xl sm:text-7xl lg:text-[7rem] xl:text-[9rem] font-syne font-extrabold leading-[0.9] tracking-tighter gradient-text uppercase mb-4 lg:mb-8 w-full">
-              GRADATIM<br/>FEROCITER
-            </h1>
-          </motion.div>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-white/40 font-syne text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.4em] font-bold uppercase mb-8 lg:mb-10 pl-1">
-            Step By Step • Ferociously • Solana
-          </motion.p>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start w-full sm:w-auto">
-            <button onClick={() => document.getElementById('contract')?.scrollIntoView({ behavior: 'smooth' })} className="btn-ferociter px-8 py-4 md:px-10 md:py-5 font-syne font-extrabold text-[11px] tracking-[0.2em] w-full sm:w-auto">GET $FEROCITER</button>
-            <a href="#chart" className="px-8 py-4 md:px-10 md:py-5 rounded-full border border-white/10 font-syne font-extrabold text-[11px] tracking-[0.2em] text-white/60 hover:text-white hover:bg-white/5 transition-all text-center w-full sm:w-auto">LIVE CHART</a>
-          </motion.div>
+    <section id="home" className="min-h-screen flex flex-col items-center justify-center pt-24 pb-12 px-6 overflow-hidden">
+      <motion.div style={{ y: y1, opacity }} className="text-center w-full max-w-full">
+        <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1.2, ease: "easeOut" }} className="relative inline-block mb-8 md:mb-12">
+          <div className="absolute inset-0 bg-white/10 blur-[60px] md:blur-[100px] rounded-full" />
+          <img src={FEROCITER_IMG} alt="Ferociter" className="w-40 h-40 md:w-80 md:h-80 rounded-full border-4 border-white/5 relative z-10 animate-float" />
         </motion.div>
-
-        {/* Image Side - Right on Desktop, Top on Mobile */}
-        <motion.div style={{ y: y1 }} className="order-1 lg:order-2 flex justify-center lg:justify-end relative mb-6 lg:mb-0">
-           <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1.2, ease: "easeOut" }} className="relative">
-             {/* Glow Effects */}
-             <div className="absolute inset-0 bg-white/5 blur-[60px] md:blur-[80px] rounded-full" />
-             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent blur-[30px] md:blur-[40px] rounded-full animate-pulse" />
-             
-             {/* The Framed Image */}
-             <div className="relative z-10 p-2 md:p-4 border border-white/10 rounded-full bg-white/5 backdrop-blur-sm">
-                <div className="p-1 rounded-full border border-white/20 bg-black/20">
-                   <img 
-                     src={FEROCITER_IMG} 
-                     alt="Ferociter" 
-                     className="w-48 h-48 sm:w-80 sm:h-80 lg:w-[500px] lg:h-[500px] rounded-full object-cover shadow-2xl shadow-white/5" 
-                   />
-                </div>
-             </div>
-           </motion.div>
+        <div className="relative w-full overflow-hidden px-2">
+          <motion.h1 
+            initial={{ opacity: 0, y: 40 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ delay: 0.2, duration: 0.8 }} 
+            className="text-[11vw] sm:text-6xl md:text-[8rem] font-syne font-extrabold leading-[0.9] tracking-tighter gradient-text uppercase"
+          >
+            GRADATIM<br/>FEROCITER
+          </motion.h1>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-6 md:mt-8 text-white/30 font-syne text-[10px] md:text-sm tracking-[0.3em] md:tracking-[0.5em] font-bold uppercase px-4">Step By Step • Ferociously • Solana</motion.p>
+        </div>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="mt-12 md:mt-16 flex flex-col sm:flex-row justify-center gap-4 px-6 w-full max-w-md mx-auto sm:max-w-none">
+          <button onClick={() => document.getElementById('contract')?.scrollIntoView({ behavior: 'smooth' })} className="btn-ferociter w-full sm:w-auto px-10 md:px-12 py-5 font-syne font-extrabold text-[11px] tracking-[0.2em]">GET $FEROCITER</button>
+          <a href={`https://dexscreener.com/solana/${CA}`} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-10 md:px-12 py-5 rounded-full border border-white/20 font-syne font-extrabold text-[11px] tracking-[0.2em] text-white/80 hover:text-white hover:bg-white/5 transition-all text-center uppercase">LIVE CHART</a>
         </motion.div>
-      </div>
-      
-      {/* Background Decor */}
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#050505] to-transparent z-20 pointer-events-none"></div>
+      </motion.div>
     </section>
   );
 };
 
 const About = () => (
-  <section id="mission" className="py-24 md:py-32 px-6">
+  <section id="mission" className="py-24 md:py-40 px-6">
     <div className="max-w-6xl mx-auto">
-      <div className="soft-glass rounded-[3rem] p-8 md:p-16 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 blur-[150px] rounded-full pointer-events-none" />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10">
-          <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-            <h2 className="text-4xl md:text-6xl font-syne font-extrabold mb-8 uppercase gradient-text leading-tight">THE MEANING.</h2>
-            <div className="space-y-6 text-white/60 font-syne text-sm md:text-base leading-relaxed text-justify">
-              <p className="border-l-2 border-white/20 pl-4 italic text-white/80">
-                <span className="text-white font-bold">"Gradatim Ferociter"</span> is a Latin phrase meaning "Step by step, ferociously". It is the official motto of Jeff Bezos' aerospace company, Blue Origin, representing a philosophy of combining slow, steady, and meticulous progress (no shortcuts) with intense, passionate effort to achieve ambitious, long-term goals.
-              </p>
-              <p>
-                Jeff Bezos has been loyal to this quote for literal YEARS. Now he shilled it again and Elon is not happy.
-              </p>
-              <p>
-                They are literally going back and forth on twitter about it as we speak. The two of the most richest people on this planet are beefing over their space companies.
-              </p>
-              <p className="text-white font-bold text-lg pt-2">
-                $Ferociter is the runner from all of that.
-              </p>
-              
-              <div className="pt-8">
-                <a 
-                  href={TWEET_LINK} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full hover:scale-105 transition-all group"
-                >
-                  <span className="font-syne font-extrabold text-[10px] tracking-widest uppercase">SEE THE TWEET</span>
-                  <span className="group-hover:translate-x-1 transition-transform">→</span>
-                </a>
-              </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
+        <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
+          <h2 className="text-4xl md:text-7xl font-syne font-extrabold mb-8 md:mb-10 uppercase gradient-text leading-tight">THE BILLIONAIRE<br/>BEEF.</h2>
+          <div className="space-y-6 text-white/50 font-syne text-base md:text-lg leading-relaxed">
+            <p>Jeff Bezos has been loyal to this quote for literal YEARS. Now he shilled it again and Elon is not happy.</p>
+            <p>They are literally going back and forth on twitter about it as we speak. The two of the most richest people on this planet are beefing over their space companies.</p>
+            <p className="text-white font-bold">$Ferociter is the runner from all of that.</p>
+            <p className="font-marker text-2xl md:text-4xl text-white pt-4">Step by step ferociously.</p>
+            
+            <div className="pt-8">
+              <a 
+                href={TWEET_LINK} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="inline-flex flex-col sm:flex-row items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-all group text-center sm:text-left w-full sm:w-auto"
+              >
+                <span className="font-syne font-extrabold text-[10px] md:text-[11px] tracking-widest uppercase">THE TWEET THAT STARTED IT ALL</span>
+                <span className="group-hover:translate-x-1 transition-transform hidden sm:inline">→</span>
+              </a>
             </div>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="relative hidden lg:block">
-            <div className="rotate-3 hover:rotate-0 transition-transform duration-700">
-               <div className="aspect-square rounded-[2rem] overflow-hidden border border-white/10 opacity-60 shadow-2xl">
-                 <img src={FEROCITER_IMG} className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-500 scale-110" alt="Context" />
-               </div>
+          </div>
+        </motion.div>
+        <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="relative">
+          <div className="soft-glass rounded-[2rem] md:rounded-[3rem] p-3 md:p-4 md:rotate-3 hover:rotate-0 transition-transform duration-700 overflow-hidden group">
+            <img src={FEROCITER_IMG} className="w-full rounded-[1.5rem] md:rounded-[2.5rem] grayscale group-hover:grayscale-0 transition-all duration-700" alt="Ferociter Mission" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6 md:p-10 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span className="font-marker text-2xl md:text-3xl text-white uppercase">Gradatim Ferociter</span>
+              <p className="text-white/60 font-syne text-[10px] tracking-widest mt-2 uppercase">A Billionaire Rivalry</p>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   </section>
@@ -187,29 +158,22 @@ const Tokenomics = () => {
     setTimeout(() => setCopied(false), 2000);
   };
   return (
-    <section id="contract" className="py-24 px-6 relative">
+    <section id="contract" className="py-24 md:py-40 px-6">
       <div className="max-w-6xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-8xl font-syne font-extrabold mb-6 uppercase gradient-text">COIN DATA</h2>
-            <div className="inline-flex flex-col md:flex-row items-center gap-2 bg-white/5 border border-white/10 rounded-2xl p-2 pl-6 pr-2 max-w-full overflow-hidden">
-               <span className="font-mono text-[10px] md:text-sm text-white/50 break-all">{CA}</span>
-               <button onClick={handleCopy} className="px-6 py-3 bg-white text-black rounded-xl font-bold text-[10px] tracking-widest uppercase hover:bg-gray-200 transition-colors flex-shrink-0">
-                 {copied ? 'COPIED' : 'COPY'}
-               </button>
+        <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="soft-glass rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-12 lg:p-24 text-center overflow-hidden relative">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+          <h2 className="text-4xl md:text-8xl font-syne font-extrabold mb-8 md:mb-12 uppercase gradient-text">FLIGHT DATA</h2>
+          <div className="max-w-2xl mx-auto mb-12 md:mb-16">
+            <div className="bg-black/40 border border-white/5 rounded-2xl md:rounded-3xl p-4 md:p-5 flex flex-col md:flex-row items-center gap-4">
+              <span className="flex-1 font-mono text-[9px] md:text-sm text-white/40 truncate w-full text-center md:text-left overflow-hidden">{CA}</span>
+              <button onClick={handleCopy} className="w-full md:w-auto px-8 py-4 bg-white text-black font-syne font-extrabold text-[10px] tracking-widest rounded-xl md:rounded-2xl hover:bg-white/90 transition-all uppercase whitespace-nowrap">{copied ? 'COPIED!' : 'COPY ADDR'}</button>
             </div>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[ 
-              { label: "TOTAL SUPPLY", val: "1B", sub: "TOKENS" }, 
-              { label: "TAXES", val: "0/0", sub: "BUY / SELL" }, 
-              { label: "LIQUIDITY", val: "BURNED", sub: "FOREVER" } 
-            ].map((stat, i) => (
-              <motion.div key={i} whileHover={{ y: -5 }} className="p-6 md:p-10 border border-white/5 rounded-[2.5rem] bg-gradient-to-b from-white/[0.03] to-transparent text-center group hover:border-white/20 transition-all">
-                <p className="text-[9px] font-syne text-white/30 tracking-[0.3em] font-bold mb-4 uppercase group-hover:text-white/50 transition-colors">{stat.label}</p>
-                <p className="text-5xl font-syne font-extrabold text-white uppercase mb-2">{stat.val}</p>
-                <p className="text-[10px] font-syne text-white/20 tracking-widest uppercase">{stat.sub}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            {[ { label: "TOTAL SUPPLY", val: "1B" }, { label: "TAXES", val: "0% TAX" }, { label: "LIQUIDITY", val: "BURNED" } ].map((stat, i) => (
+              <motion.div key={i} whileHover={{ y: -5 }} className="p-8 md:p-10 border border-white/5 rounded-[2rem] md:rounded-[2.5rem] bg-white/[0.01] flex flex-col items-center">
+                <p className="text-[8px] md:text-[9px] font-syne text-white/20 tracking-[0.2em] md:tracking-[0.3em] font-bold mb-3 md:mb-4 uppercase">{stat.label}</p>
+                <p className="text-lg md:text-2xl font-syne font-extrabold text-white uppercase">{stat.val}</p>
               </motion.div>
             ))}
           </div>
@@ -219,46 +183,23 @@ const Tokenomics = () => {
   );
 };
 
-const Chart = () => (
-  <section id="chart" className="py-24 px-6">
-    <div className="max-w-7xl mx-auto">
-       <div className="mb-12 text-center">
-          <h2 className="text-4xl md:text-6xl font-syne font-extrabold gradient-text uppercase tracking-tighter">LIVE CHART</h2>
-       </div>
-       <motion.div 
-         initial={{ opacity: 0, scale: 0.95 }}
-         whileInView={{ opacity: 1, scale: 1 }}
-         viewport={{ once: true }}
-         className="w-full h-[600px] md:h-[700px] soft-glass rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 p-2 md:p-4 shadow-2xl shadow-black/50"
-       >
-         <div className="w-full h-full rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden bg-[#050505]">
-           <iframe 
-             src={`https://dexscreener.com/solana/${CA}?embed=1&theme=dark&trades=0&info=0`}
-             className="w-full h-full border-0"
-             title="DexScreener Chart"
-           ></iframe>
-         </div>
-       </motion.div>
-    </div>
-  </section>
-);
-
 const Connect = () => (
-  <section id="connect" className="py-24 px-6">
-    <div className="max-w-5xl mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <section id="connect" className="py-24 md:py-40 px-6">
+    <div className="max-w-6xl mx-auto">
+      <div className="mb-12 md:mb-20">
+        <h2 className="text-4xl md:text-9xl font-syne font-extrabold gradient-text uppercase tracking-tighter text-center">CONNECT</h2>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 max-w-4xl mx-auto">
         {[
-          { name: "DEXSCREENER", url: `https://dexscreener.com/solana/${CA}`, desc: "View Analysis" },
+          { name: "DEXSCREENER", url: `https://dexscreener.com/solana/${CA}`, desc: "Flight Charts" },
           { name: "X / TWITTER", url: X_LINK, desc: "Join The Crew" }
         ].map((link, i) => (
-          <motion.a key={i} href={link.url} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 0.98 }} className="flex items-center justify-between p-6 md:p-10 soft-glass rounded-[2.5rem] hover:bg-white/[0.08] transition-all group border border-white/5">
-            <div>
-              <span className="font-syne font-extrabold text-xl md:text-3xl uppercase text-white block mb-2">{link.name}</span>
-              <span className="text-[9px] font-syne font-bold text-white/30 tracking-widest uppercase group-hover:text-white/50 transition-colors">{link.desc}</span>
+          <motion.a key={i} href={link.url} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 0.98 }} className="flex items-center justify-between p-8 md:p-12 soft-glass rounded-[2rem] md:rounded-[3rem] hover:bg-white/[0.05] transition-all group overflow-hidden">
+            <div className="max-w-[80%]">
+              <span className="font-syne font-extrabold text-xl md:text-2xl uppercase text-white block mb-2 truncate">{link.name}</span>
+              <span className="text-[8px] md:text-[9px] font-syne font-bold text-white/20 tracking-widest uppercase">{link.desc}</span>
             </div>
-            <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
-              <span className="text-xl">↗</span>
-            </div>
+            <span className="text-xl md:text-2xl opacity-40 group-hover:opacity-100 transition-opacity uppercase">→</span>
           </motion.a>
         ))}
       </div>
@@ -274,7 +215,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen selection:bg-white selection:text-black">
+    <div className="min-h-screen selection:bg-white selection:text-black w-full overflow-x-hidden">
       <AnimatePresence>
         {!isLoaded && (
           <motion.div key="preloader" exit={{ opacity: 0 }} className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-[#050505]">
@@ -284,19 +225,18 @@ const App: React.FC = () => {
         )}
       </AnimatePresence>
       {isLoaded && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="relative z-10">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="relative z-10 w-full">
           <Navbar />
-          <main>
+          <main className="w-full">
             <Hero />
             <About />
             <Tokenomics />
-            <Chart />
             <Connect />
           </main>
           <footer className="py-12 md:py-24 border-t border-white/5 text-center bg-black/50">
             <div className="max-w-6xl mx-auto px-6">
               <p className="text-white/10 font-syne text-[8px] md:text-[9px] tracking-[0.3em] md:tracking-[0.5em] uppercase mb-4">$FEROCITER 2025 • THE FUTURE IS NOW</p>
-              <a href={`mailto:${EMAIL}`} className="text-white/40 hover:text-white font-mono text-[10px] md:text-xs transition-colors uppercase tracking-widest">{EMAIL}</a>
+              <a href={`mailto:${EMAIL}`} className="text-white/40 hover:text-white font-mono text-[10px] md:text-xs transition-colors uppercase tracking-widest break-all px-4 block">{EMAIL}</a>
             </div>
           </footer>
         </motion.div>
