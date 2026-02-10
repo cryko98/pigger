@@ -115,8 +115,8 @@ const About = () => (
   <section id="mission" className="py-24 md:py-40 px-6">
     <div className="max-w-6xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
-        <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-          <h2 className="text-4xl md:text-7xl font-syne font-extrabold mb-8 md:mb-10 uppercase gradient-text leading-tight">THE BILLIONAIRE<br/>BEEF.</h2>
+        <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative z-10">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-7xl font-syne font-extrabold mb-8 md:mb-10 uppercase gradient-text leading-tight break-words">THE BILLIONAIRE<br/>BEEF.</h2>
           <div className="space-y-6 text-white/50 font-syne text-base md:text-lg leading-relaxed">
             <p>Jeff Bezos has been loyal to this quote for literal YEARS. Now he shilled it again and Elon is not happy.</p>
             <p>They are literally going back and forth on twitter about it as we speak. The two of the most richest people on this planet are beefing over their space companies.</p>
@@ -136,7 +136,7 @@ const About = () => (
             </div>
           </div>
         </motion.div>
-        <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="relative">
+        <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="relative z-0">
           <div className="soft-glass rounded-[2rem] md:rounded-[3rem] p-3 md:p-4 md:rotate-3 hover:rotate-0 transition-transform duration-700 overflow-hidden group">
             <img src={FEROCITER_IMG} className="w-full rounded-[1.5rem] md:rounded-[2.5rem] grayscale group-hover:grayscale-0 transition-all duration-700" alt="Ferociter Mission" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6 md:p-10 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -207,6 +207,30 @@ const Connect = () => (
   </section>
 );
 
+const Chart = () => (
+  <section id="chart" className="py-24 md:py-40 px-6">
+    <div className="max-w-6xl mx-auto">
+      <div className="mb-12 md:mb-20">
+        <h2 className="text-4xl md:text-8xl font-syne font-extrabold gradient-text uppercase tracking-tighter text-center">FLIGHT PATH</h2>
+      </div>
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="w-full h-[500px] md:h-[700px] soft-glass rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/5 relative bg-[#050505]"
+      >
+        <iframe 
+          src={`https://dexscreener.com/solana/${CA}?embed=1&theme=dark`}
+          className="absolute inset-0 w-full h-full"
+          style={{ border: 0 }}
+          title="DexScreener Chart"
+        ></iframe>
+      </motion.div>
+    </div>
+  </section>
+);
+
 const App: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
@@ -232,6 +256,7 @@ const App: React.FC = () => {
             <About />
             <Tokenomics />
             <Connect />
+            <Chart />
           </main>
           <footer className="py-12 md:py-24 border-t border-white/5 text-center bg-black/50">
             <div className="max-w-6xl mx-auto px-6">
