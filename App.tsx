@@ -91,16 +91,16 @@ const Hero = () => {
           <div className="absolute inset-0 bg-white/10 blur-[60px] md:blur-[100px] rounded-full" />
           <img src={FEROCITER_IMG} alt="Ferociter" className="w-40 h-40 md:w-80 md:h-80 rounded-full border-4 border-white/5 relative z-10 animate-float" />
         </motion.div>
-        <div className="relative w-full overflow-hidden px-2">
+        <div className="relative w-full overflow-hidden px-4">
           <motion.h1 
             initial={{ opacity: 0, y: 40 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ delay: 0.2, duration: 0.8 }} 
-            className="text-[11vw] sm:text-6xl md:text-[8rem] font-syne font-extrabold leading-[0.9] tracking-tighter gradient-text uppercase"
+            className="text-[8.5vw] sm:text-6xl md:text-[8rem] font-syne font-extrabold leading-[0.9] tracking-tighter gradient-text uppercase"
           >
             GRADATIM<br/>FEROCITER
           </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-6 md:mt-8 text-white/30 font-syne text-[10px] md:text-sm tracking-[0.3em] md:tracking-[0.5em] font-bold uppercase px-4">Step By Step • Ferociously • Solana</motion.p>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-6 md:mt-8 text-white/30 font-syne text-[10px] md:text-sm tracking-[0.2em] md:tracking-[0.5em] font-bold uppercase px-4">Step By Step • Ferociously • Solana</motion.p>
         </div>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="mt-12 md:mt-16 flex flex-col sm:flex-row justify-center gap-4 px-6 w-full max-w-md mx-auto sm:max-w-none">
           <button onClick={() => document.getElementById('contract')?.scrollIntoView({ behavior: 'smooth' })} className="btn-ferociter w-full sm:w-auto px-10 md:px-12 py-5 font-syne font-extrabold text-[11px] tracking-[0.2em]">GET $FEROCITER</button>
