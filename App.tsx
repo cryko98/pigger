@@ -86,12 +86,12 @@ const Hero = () => {
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
-    <section id="home" className="min-h-[100dvh] flex items-center justify-center pt-28 pb-12 px-4 sm:px-6 overflow-hidden relative">
+    <section id="home" className="min-h-[100dvh] flex items-center justify-center pt-28 pb-12 px-4 sm:px-6 relative overflow-x-hidden">
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
         {/* Text Side - Left on Desktop, Bottom on Mobile */}
         <motion.div style={{ opacity }} className="order-2 lg:order-1 text-center lg:text-left z-10 flex flex-col items-center lg:items-start">
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.8 }} className="w-full">
-             <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-[7rem] xl:text-[9rem] font-syne font-extrabold leading-[0.9] tracking-tighter gradient-text uppercase mb-4 lg:mb-8 w-full break-words">
+             <h1 className="text-[12vw] xs:text-5xl sm:text-7xl lg:text-[7rem] xl:text-[9rem] font-syne font-extrabold leading-[0.9] tracking-tighter gradient-text uppercase mb-4 lg:mb-8 w-full">
               GRADATIM<br/>FEROCITER
             </h1>
           </motion.div>
@@ -192,9 +192,9 @@ const Tokenomics = () => {
         <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-8xl font-syne font-extrabold mb-6 uppercase gradient-text">COIN DATA</h2>
-            <div className="inline-flex flex-col md:flex-row items-center gap-2 bg-white/5 border border-white/10 rounded-2xl p-2 pl-6 pr-2">
-               <span className="font-mono text-[10px] md:text-sm text-white/50">{CA}</span>
-               <button onClick={handleCopy} className="px-6 py-3 bg-white text-black rounded-xl font-bold text-[10px] tracking-widest uppercase hover:bg-gray-200 transition-colors">
+            <div className="inline-flex flex-col md:flex-row items-center gap-2 bg-white/5 border border-white/10 rounded-2xl p-2 pl-6 pr-2 max-w-full overflow-hidden">
+               <span className="font-mono text-[10px] md:text-sm text-white/50 break-all">{CA}</span>
+               <button onClick={handleCopy} className="px-6 py-3 bg-white text-black rounded-xl font-bold text-[10px] tracking-widest uppercase hover:bg-gray-200 transition-colors flex-shrink-0">
                  {copied ? 'COPIED' : 'COPY'}
                </button>
             </div>
@@ -206,7 +206,7 @@ const Tokenomics = () => {
               { label: "TAXES", val: "0/0", sub: "BUY / SELL" }, 
               { label: "LIQUIDITY", val: "BURNED", sub: "FOREVER" } 
             ].map((stat, i) => (
-              <motion.div key={i} whileHover={{ y: -5 }} className="p-10 border border-white/5 rounded-[2.5rem] bg-gradient-to-b from-white/[0.03] to-transparent text-center group hover:border-white/20 transition-all">
+              <motion.div key={i} whileHover={{ y: -5 }} className="p-6 md:p-10 border border-white/5 rounded-[2.5rem] bg-gradient-to-b from-white/[0.03] to-transparent text-center group hover:border-white/20 transition-all">
                 <p className="text-[9px] font-syne text-white/30 tracking-[0.3em] font-bold mb-4 uppercase group-hover:text-white/50 transition-colors">{stat.label}</p>
                 <p className="text-5xl font-syne font-extrabold text-white uppercase mb-2">{stat.val}</p>
                 <p className="text-[10px] font-syne text-white/20 tracking-widest uppercase">{stat.sub}</p>
@@ -251,7 +251,7 @@ const Connect = () => (
           { name: "DEXSCREENER", url: `https://dexscreener.com/solana/${CA}`, desc: "View Analysis" },
           { name: "X / TWITTER", url: X_LINK, desc: "Join The Crew" }
         ].map((link, i) => (
-          <motion.a key={i} href={link.url} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 0.98 }} className="flex items-center justify-between p-10 soft-glass rounded-[2.5rem] hover:bg-white/[0.08] transition-all group border border-white/5">
+          <motion.a key={i} href={link.url} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 0.98 }} className="flex items-center justify-between p-6 md:p-10 soft-glass rounded-[2.5rem] hover:bg-white/[0.08] transition-all group border border-white/5">
             <div>
               <span className="font-syne font-extrabold text-xl md:text-3xl uppercase text-white block mb-2">{link.name}</span>
               <span className="text-[9px] font-syne font-bold text-white/30 tracking-widest uppercase group-hover:text-white/50 transition-colors">{link.desc}</span>
