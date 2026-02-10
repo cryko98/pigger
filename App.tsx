@@ -12,9 +12,11 @@ const CA = "7SYuU1Z6EKfpYQQ9VeTXfLW5ofhigdn8Y7iQsqoepump";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuItems = [
+    { name: 'HOME', href: '#home' },
     { name: 'MISSION', href: '#mission' },
     { name: 'CONTRACT', href: '#contract' },
-    { name: 'CONNECT', href: '#connect' }
+    { name: 'CONNECT', href: '#connect' },
+    { name: 'CHART', href: '#chart' }
   ];
 
   return (
@@ -31,7 +33,7 @@ const Navbar = () => {
         </div>
         
         {/* Desktop Menu */}
-        <div className="hidden md:flex gap-8">
+        <div className="hidden md:flex gap-6 lg:gap-8">
           {menuItems.map((item) => (
             <a key={item.name} href={item.href} className="font-syne text-[9px] font-extrabold tracking-[0.2em] text-white/40 hover:text-white transition-all uppercase">{item.name}</a>
           ))}
@@ -118,6 +120,7 @@ const About = () => (
         <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative z-10">
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-7xl font-syne font-extrabold mb-8 md:mb-10 uppercase gradient-text leading-tight break-words">THE BILLIONAIRE<br/>BEEF.</h2>
           <div className="space-y-6 text-white/50 font-syne text-base md:text-lg leading-relaxed">
+            <p>Gradatim Ferociter is a Latin phrase meaning "Step by step, ferociously". It is the official motto of Jeff Bezos' aerospace company, Blue Origin, representing a philosophy of combining slow, steady, and meticulous progress (no shortcuts) with intense, passionate effort to achieve ambitious, long-term goals.</p>
             <p>Jeff Bezos has been loyal to this quote for literal YEARS. Now he shilled it again and Elon is not happy.</p>
             <p>They are literally going back and forth on twitter about it as we speak. The two of the most richest people on this planet are beefing over their space companies.</p>
             <p className="text-white font-bold">$Ferociter is the runner from all of that.</p>
@@ -162,7 +165,7 @@ const Tokenomics = () => {
       <div className="max-w-6xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="soft-glass rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-12 lg:p-24 text-center overflow-hidden relative">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          <h2 className="text-4xl md:text-8xl font-syne font-extrabold mb-8 md:mb-12 uppercase gradient-text">FLIGHT DATA</h2>
+          <h2 className="text-4xl md:text-8xl font-syne font-extrabold mb-8 md:mb-12 uppercase gradient-text">COIN DATA</h2>
           <div className="max-w-2xl mx-auto mb-12 md:mb-16">
             <div className="bg-black/40 border border-white/5 rounded-2xl md:rounded-3xl p-4 md:p-5 flex flex-col md:flex-row items-center gap-4">
               <span className="flex-1 font-mono text-[9px] md:text-sm text-white/40 truncate w-full text-center md:text-left overflow-hidden">{CA}</span>
@@ -211,7 +214,7 @@ const Chart = () => (
   <section id="chart" className="py-24 md:py-40 px-6">
     <div className="max-w-6xl mx-auto">
       <div className="mb-12 md:mb-20">
-        <h2 className="text-4xl md:text-8xl font-syne font-extrabold gradient-text uppercase tracking-tighter text-center">FLIGHT PATH</h2>
+        <h2 className="text-4xl md:text-8xl font-syne font-extrabold gradient-text uppercase tracking-tighter text-center">LIVE CHART</h2>
       </div>
       <motion.div 
         initial={{ opacity: 0, y: 50 }}
